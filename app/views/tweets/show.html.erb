@@ -1,0 +1,39 @@
+<h1>Cafe</h1>
+<h3>Tweet詳細</h3>
+<div class="tweet">
+  <p><%= @tweet.shop %></p>
+  <p><%= @tweet.place %></p>
+  <p><%= @tweet.price %></p>
+  <p><%= @tweet.detail %></p>
+  <p><%= @tweet.created_at %></p>
+<% if user_signed_in? %>
+  <% if current_user.already_liked?(@tweet) %>
+        <%= link_to tweet_like_path(@tweet), method: :delete do %>
+          <i class="fa-solid fa-heart"></i><%= @tweet.likes.count %>
+        <% end %>
+      <% else %>
+        <%= link_to tweet_likes_path(@tweet), method: :post do %>
+          <i class="fa-regular fa-heart"></i><%= @tweet.likes.count %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <i class="fa-regular fa-heart"></i><%= @tweet.likes.count %>
+    <% end %>
+  <%= link_to "編集する", edit_tweet_path(@tweet.id) %>
+</div>
+
+
+<h2>いいねしたユーザー</h2>
+<% @tweet.liked_users.each do |user| %>
+  <li><%= user.email %></li>
+<% end %>
+
+<% @tweet.tags.each do |tag| %>
+    <span><%= tag.name %></span>
+<% end %>
+
+ 
+
+<%= link_to "Tweet一覧に戻る", tweets_path %>
+
+
