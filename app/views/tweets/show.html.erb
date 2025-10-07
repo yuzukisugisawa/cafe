@@ -1,39 +1,104 @@
-<h1>Cafe</h1>
-<h3>Tweet詳細</h3>
-<div class="tweet">
-  <p><%= @tweet.shop %></p>
-  <p><%= @tweet.place %></p>
-  <p><%= @tweet.price %></p>
-  <p><%= @tweet.detail %></p>
-  <p><%= @tweet.created_at %></p>
-<% if user_signed_in? %>
-  <% if current_user.already_liked?(@tweet) %>
-        <%= link_to tweet_like_path(@tweet), method: :delete do %>
-          <i class="fa-solid fa-heart"></i><%= @tweet.likes.count %>
+<div class="body">
+  <div class="page-container">
+
+    <%# --- ページタイトル --- %>
+    <div class="title">
+      <h1>Cafe</h1>
+      <h3></h3>
+    </div>
+
+    <%# --- メインコンテンツカード --- %>
+    <div class="tweet-show-card">
+      
+      <%# --- 左カラム (画像ギャラリー) --- %>
+      <div class="tweet-gallery">
+        <% if @tweet.image? %>
+          <%= image_tag @tweet.image_url, class: "main-image" %>
         <% end %>
-      <% else %>
-        <%= link_to tweet_likes_path(@tweet), method: :post do %>
-          <i class="fa-regular fa-heart"></i><%= @tweet.likes.count %>
+        <% if @tweet.image2? %>
+          <%= image_tag @tweet.image2_url, class: "sub-image" %>
         <% end %>
+      </div>
+
+      <%# --- 右カラム (詳細情報) --- %>
+      <div class="tweet-details">
+        <h2 class="tweet-shop-name"><%= @tweet.shop %></h2>
+        
+        <div class="tweet-info-group">
+          <p class="tweet-info-item"><strong>place:</strong> <%= @tweet.place %></p>
+          <p class="tweet-info-item"><strong>price:</strong> <%= @tweet.menu %></p>
+          <p class="tweet-info-item"><strong></strong> <%= @tweet.created_at.strftime("%Y年%m月%d日") %></p>
+        </div>
+        
+        <div class="tweet-detail-text">
+          <p><%= simple_format(@tweet.detail) %></p>
+        </div>
+
+        <%# --- タグ --- %>
+        <div class="tweet-tags">
+          <% @tweet.tags.each do |tag| %>
+            <span class="tag-item"><%= tag.name %></span>
+          <% end %>
+        </div>
+
+        <%# --- アクションボタン (いいね・編集・削除) --- %>
+        <div class="tweet-actions">
+          <div class="like-button">
+            <% if user_signed_in? %>
+              <% if current_user.already_liked?(@tweet) %>
+                <%= link_to tweet_like_path(@tweet), method: :delete do %>
+                  <i class="fa-solid fa-heart"></i><span><%= @tweet.likes.count %></span>
+                <% end %>
+              <% else %>
+                <%= link_to tweet_likes_path(@tweet), method: :post do %>
+                  <i class="fa-regular fa-heart"></i><span><%= @tweet.likes.count %></span>
+                <% end %>
+              <% end %>
+            <% else %>
+              <i class="fa-regular fa-heart"></i><span><%= @tweet.likes.count %></span>
+            <% end %>
+          </div>
+          <div class="edit-delete-links">
+            <%= link_to "edit", edit_tweet_path(@tweet.id) %>
+            <%= button_to "delete", tweet_path(@tweet), method: :delete, class: "button-delete" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <%# --- ページ下部リンク --- %>
+    <div class="page-footer">
+      <%= link_to tweets_path, class: "custom-button-v3" do %>
+        <span>Top</span>
       <% end %>
-    <% else %>
-      <i class="fa-regular fa-heart"></i><%= @tweet.likes.count %>
-    <% end %>
-  <%= link_to "編集する", edit_tweet_path(@tweet.id) %>
+    </div>
+
+  </div>
 </div>
 
+<script>
+  // turbo:load イベントは、初回読み込み時とTurboによる画面遷移時の両方で発火します
+  document.addEventListener('turbo:load', function() {
 
-<h2>いいねしたユーザー</h2>
-<% @tweet.liked_users.each do |user| %>
-  <li><%= user.email %></li>
-<% end %>
+    // それぞれの画像要素を取得
+    const mainImage = document.querySelector('.main-image');
+    const subImage = document.querySelector('.sub-image');
 
-<% @tweet.tags.each do |tag| %>
-    <span><%= tag.name %></span>
-<% end %>
+    // 両方の画像が存在する場合のみ、処理を実行
+    if (mainImage && subImage) {
 
- 
+      // メイン画像をクリックしたときの処理
+      mainImage.addEventListener('click', function() {
+        mainImage.style.display = 'none'; // メイン画像を非表示に
+        subImage.style.display = 'block'; // サブ画像を表示
+      });
 
-<%= link_to "Tweet一覧に戻る", tweets_path %>
-
-
+      // サブ画像をクリックしたときの処理
+      subImage.addEventListener('click', function() {
+        subImage.style.display = 'none'; // サブ画像を非表示に
+        mainImage.style.display = 'block'; // メイン画像を表示
+      });
+    }
+  });
+</script>

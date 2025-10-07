@@ -1,0 +1,317 @@
+.body{
+    background-color: #ECDFD0;
+}
+/* ===================================
+   調整用の変数
+   =================================== */
+:root {
+  /* スライドさせる写真のサイズと余白を定義 */
+  --slide-width: 500px;  /* 写真の幅 */
+  --slide-height: 500px; /* 写真の高さ */
+  --slide-margin: 10px;  /* 写真の左右の余白 */
+}
+
+/* ボタン全体のコンテナ */
+.custom-button-v3 {
+  position: relative; /* 背景(::before)を配置する基準点 */
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1rem; /* ★文字サイズを少し小さくしました */
+  color: #832929;
+  padding: 10px 0; /* ボタンの上下の高さを確保 */
+  z-index: 1; /* 重なり順の基準 */
+}
+
+/* テキスト部分 */
+.custom-button-v3 span {
+  margin-top: 15px;
+  /* この要素には特別なスタイルは不要です */
+}
+
+/* 紫の四角（今回はaタグの疑似要素として生成） */
+.custom-button-v3::before {
+  content: '';
+  position: absolute;
+  background-color: #D6C0A6;
+  z-index: -1; /* テキストと矢印の背後に配置 */
+margin-top: 15px;
+  /* 位置とサイズを指定 */
+  top: 0;
+  bottom: 0;
+  left: 1ch; /* 左端を1文字分右にずらす（2文字目から開始） */
+  right: 1.5ch; /* ★右端を1.5文字分内側に入れる（矢印がはみ出す） */
+}
+
+/* 矢印 */
+.custom-button-v3::after {
+  content: '→';
+  margin-top: 15px;
+  margin-left: 2ch; /* ★テキストとの間隔を広くしました */
+}
+
+/* マウスホバー時のエフェクト（任意） */
+.custom-button-v3:hover {
+  opacity: 0.8;
+}
+
+
+.tagu{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 60px;
+  margin-top: 35px;
+}
+
+.tagu1{
+    margin: 10px;
+}
+
+label {
+	margin-right: px; /* ボタン同士の間隔 */
+}
+label input {
+	display: none; /* デフォルトのinputは非表示にする */
+}
+label span {
+	color: #8d612e;; /* 文字色を黒に */
+	font-size: 15px; /* 文字サイズを14pxに */
+
+	border: 1px solid #D6C0A6;; /* 淵の線を指定 */
+	border-radius: 20px; /* 角丸を入れて、左右が丸いボタンにする */
+	padding: 5px 20px; /* 上下左右に余白をトル */
+    writing-mode: horizontal-tb;
+}
+label input:checked + span {
+	color: #FFF; /* 文字色を白に */
+  background-color: #D6C0A6;
+	border: 1px solid #8d612e; /* 淵の線を薄い赤に */
+}
+
+/* ====== ▼ここから差し替え▼ ====== */
+
+.tagutuika {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 10px;
+  display: flex; /* 子要素を横並びにする */
+  align-items: center;
+}
+
+/* フォームの共通スタイル */
+.tagutuika input {
+  /* 既存タグとデザインを統一 */
+  color: #8d612e;
+  font-size: 15px;
+  border: 1px solid #D6C0A6;
+  padding: 5px 20px;
+  background-color: transparent; /* 背景色を透過に */
+  
+  /* デフォルトスタイルをリセット */
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* テキスト入力欄のスタイル */
+.tagutuika input[type="text"] {
+  /* 左側の角だけ丸くする */
+  width: 120px;
+  border-radius: 20px 0 0 20px;
+  border-right: none; /* 右の枠線を消してボタンと繋げる */
+}
+
+/* プレースホルダー（入力前の薄い文字）のスタイル */
+.tagutuika input[type="text"]::placeholder {
+  color: #8d612e;
+  opacity: 0.7; /* 少し薄くする */
+}
+
+/* 送信ボタンのスタイル */
+.tagutuika input[type="submit"] {
+  /* 右側の角だけ丸くする */
+  border-radius: 0 20px 20px 0;
+  cursor: pointer; /* マウスカーソルを指の形にする */
+  padding: 5px 15px; /* 文字数が少ないので少し詰める */
+}
+
+/* 送信ボタンのホバーエフェクト */
+.tagutuika input[type="submit"]:hover {
+  /* 選択中タグのデザインに合わせる */
+  background-color: #D6C0A6;
+  color: #FFF; /* 文字色を白に */
+}
+
+/* ====== ▲ここまで差し替え▲ ====== */
+
+/* ===================================
+   スライドショーのスタイル
+   =================================== */
+
+/* 詳細ページへのリンクであり、スライドの各要素となるaタグ */
+.slide-photo {
+  display: block; /* aタグに幅や高さを適用するため */
+  width: var(--slide-width);
+  height: var(--slide-height);
+  margin: 0 var(--slide-margin);
+  border: 3px solid white; /* 写真の枠線 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden; /* 角丸の外にはみ出す画像を隠す */
+  
+  /* ↓ スライドショーのために必須のプロパティ ↓ */
+  flex-shrink: 0; /* スライドが縮んでレイアウトが崩れるのを防ぎます */
+}
+
+/* スライド写真内のimgタグ */
+.slide-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* コンテナに合わせて画像をトリミングし、歪みを防ぐ */
+  transition: transform 0.3s ease; /* ホバー時のアニメーション */
+}
+
+/* 写真にマウスを乗せたら少し拡大するエフェクト */
+.slide-photo:hover img {
+  transform: scale(1.05);
+}
+
+
+/* スライドさせる帯 */
+.toukou {
+  display: flex;
+  
+  /* 全体の幅とアニメーションを自動計算 */
+  width: calc((var(--slide-width) + var(--slide-margin) * 2) * var(--slide-count) * 2);
+  animation-name: scroll;
+  animation-duration: calc(5s * var(--slide-count)); /* 1投稿5秒で移動(調整可) */
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* スライドの表示領域（窓） */
+.tweets-container {
+  width: 100%; /* 横幅いっぱいに広げる */
+  padding: 1px 0; /* 上下に余白を追加 */
+  background: #f7f7f7; /* 背景色 */
+  overflow: hidden;
+  background-color: #ECDFD0;
+}
+
+.tweet{
+width: 150%;
+height: 150%;
+margin-bottom: 100px;
+
+}
+
+/* アニメーションの定義 */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc((var(--slide-width) + var(--slide-margin) * 2) * var(--slide-count) * -1));
+  }
+}
+
+/* マウスが乗ったらアニメーションを一時停止 */
+.tweets-container:hover .toukou {
+  animation-play-state: paused;
+}
+
+
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  text-align:left
+
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-btn {
+  width: 50px;
+  height: 50px;
+background-color: #D6C0A6; 
+  border: none;
+  border-radius: 50%; /* 丸 */
+  position: relative;
+  cursor: pointer;
+}
+
+/* レンズ部分 */
+.search-btn::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  border: 3px solid white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 持ち手部分 */
+.search-btn::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 3px;
+  background-color: white;
+  top: 62%;
+  left: 62%;
+  transform: rotate(45deg);
+  transform-origin: top left;
+}
+/* 文字を入力する部分 */
+.search-input {
+ box-sizing: border-box; /* paddingを含めて幅を計算 */
+ height: 50px;
+ width: 50px; /* 初期状態ではボタンと同じ幅 */
+ border-radius: 25px; /* 角を丸く */
+ border: 3px solid #D6C0A6;
+ padding: 0 50px 0 20px; /* 右側にボタン分の余白を確保 */
+ font-size: 16px;
+ color: #333;
+ outline: none;
+ transition: all 0.4s ease-in-out;
+ opacity: 0; /* 初期状態では透明 */
+}
+
+
+/* コンテナーにカーソルが乗った時のスタイル */
+.search-box:hover .search-input {
+ width: 300px;
+ opacity: 1; /* 不透明にする */
+}
+
+
+/* 入力欄にフォーカスが当たった時（クリックした時） */
+.search-input:focus {
+   width: 300px;
+   opacity: 1;
+}
+
+.liked-heart {
+  color: #832929; /* ❤️ お好みの赤色に変更してください */
+}

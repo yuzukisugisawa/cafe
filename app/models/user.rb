@@ -9,7 +9,8 @@ class User < ApplicationRecord
   def already_liked?(tweet)
     self.likes.exists?(tweet_id: tweet.id)
   end
-
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
   validates :name, presence: true #追記
   validates :profile, length: { maximum: 200 } #追記
       

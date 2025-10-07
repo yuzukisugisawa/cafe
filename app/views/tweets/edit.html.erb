@@ -1,11 +1,70 @@
-<%= form_for @tweet do |f| %>
-  <%= f.label :shop %>
-  <%= f.label :place %>
-    <%= f.label :price %>
-  <%= f.label :detail %>
-  <%= f.text_field :shop, :size => 140 %> 
-  <%= f.text_field :place, :size => 140 %> 
-  <%= f.text_field :detail, :size => 140 %> 
-  <%= f.text_field :price, :size => 140 %> 
-  <%= f.submit "編集する" %>
-<% end %>
+<%# indexページと背景色を合わせるために全体を囲む %>
+<div class="body">
+
+  <%# フォーム全体をカードデザインにするためのコンテナ %>
+  <div class="form-container">
+
+    <h1>Cafe</h1>
+    <h3>Edit</h3>
+
+    <%= form_for @tweet do |f| %>
+
+      <%# 各入力項目をこのdivで囲む %>
+      <div class="form-field">
+        <%= f.label :shop, "shop" %>
+        <%= f.text_field :shop %>
+      </div>
+
+      <div class="form-field">
+        <%= f.label :place, "place" %>
+        <%= f.text_field :place %>
+      </div>
+
+      <div class="form-field">
+        <%= f.label :price, "price" %>
+        <%= f.text_field :menu %>
+      </div>
+
+      <div class="form-field">
+        <%= f.label :detail, "detail" %>
+        <%= f.text_area :detail %>
+      </div>
+
+      <div class="form-field">
+        <%= f.label :image, "image" %>
+        <%= f.file_field :image %>
+      </div>
+
+      <div class="form-field">
+        <%= f.label :image2, "image2" %>
+        <%= f.file_field :image2 %>
+      </div>
+
+      <%# タグ選択エリア %>
+      <div class="form-field">
+        <p class="tag-label">タグを選択</p>
+        <div class="tagu">
+          <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+            <div class="tagu1">
+              <%= tag.label do %>
+                <%= tag.check_box %>
+                <span><%= tag.text %></span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <%# ボタンを配置するエリア %>
+      <div class="form-actions">
+        <%= f.submit "更新する", class: "form-submit-button" %>
+      </div>
+
+    <% end %>
+
+    <div class="form-actions">
+      <%# 「一覧に戻る」ボタンの代わりに詳細ページへのリンクを配置 %>
+      <%= link_to "戻る", tweet_path(@tweet), class: "form-submit-button" %>
+    </div>
+  </div>
+</div>

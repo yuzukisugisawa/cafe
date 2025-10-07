@@ -1,19 +1,68 @@
-<h1>users#show</h1>
-<p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-<p>プロフィール : <%= @user.profile %></p>
+<div class="body">
+  <div class="page-container">
 
-<% if current_user.id == @user.id %>
-  <%= link_to "編集する", edit_user_registration_path %>
-<% end %>
+    <%# --- ページタイトル --- %>
+    <div class="title">
+      <h1>My Page</h1>
+    </div>
 
-<h2>ユーザーの投稿一覧</h2>
-<% @user.tweets.each do |t| %>
-  <%= t.user.name %>
-  
-  <%= t.shop %>
-  <%= t.place %>
-  <%= t.menu %>
-  <%= t.detail %>
-<% end %>
-<%= link_to "Tweet一覧に戻る", tweets_path %>
+    <%# --- プロフィールセクション --- %>
+    <div class="profile-card">
+      <p><strong>name:</strong> <%= @user.name %></p>
+      <p><strong>mail:</strong> <%= @user.email %></p>
+      <p><strong>profile:</strong><br>
+        <%= simple_format(@user.profile) %></p>
+
+      <% if current_user.id == @user.id %>
+        <%= link_to "edit", edit_user_registration_path, class: "button-primary" %>
+      <% end %>
+    </div>
+
+    <%# --- 投稿一覧セクション --- %>
+    <h2 class="section-title">投稿</h2>
+    <div class="posts-grid">
+      <% @user.tweets.each do |t| %>
+        <div class="post-card">
+          <% if t.image? %>
+            <%= image_tag t.image_url, class: "post-card-image" %>
+          <% end %>
+          <div class="post-card-content">
+            <p class="post-card-shop"><%= t.shop %></p>
+            <p class="post-card-place"><%= t.place %></p>
+            <p class="post-card-menu"><%= t.menu %></p>
+            <p class="post-card-detail"><%= t.detail %></p>
+          </div>
+          <div class="post-card-actions">
+            <%= link_to "edit", edit_tweet_path(t.id) %>
+            <%= button_to "delete", tweet_path(t.id), method: :delete, class: "button-delete" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%# --- いいね一覧セクション --- %>
+    <h2 class="section-title">いいねした投稿</h2>
+    <div class="posts-grid">
+      <% @likes.each do |like| %>
+        <div class="post-card">
+          <% if like.image? %>
+            <%= image_tag like.image_url, class: "post-card-image" %>
+          <% end %>
+          <div class="post-card-content">
+            <p class="post-card-shop"><%= like.shop %></p>
+            <p class="post-card-place"><%= like.place %></p>
+            <%# いいねのハートアイコンなどをここに追加できます %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%# --- ページ下部リンク --- %>
+    <div class="page-footer">
+      <%= link_to tweets_path, class: "custom-button-v3" do %>
+        <span>Top</span>
+      <% end %>
+    </div>
+
+  </div>
+</div>

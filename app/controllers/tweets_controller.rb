@@ -50,6 +50,7 @@ end
   def show
     @tweet = Tweet.find_by(id: params[:id])
     redirect_to tweets_path, alert: "Tweetが見つかりませんでした" if @tweet.nil?
+  
   end
 
   def edit
@@ -74,7 +75,7 @@ end
   private
 
   def tweet_params
-    params.require(:tweet).permit(:shop, :place, :menu, :detail, :image, :price, tag_ids: [])
+    params.require(:tweet).permit(:shop, :place, :menu, :detail, :image, :price,:image2, tag_ids: [])
   end
 end
 

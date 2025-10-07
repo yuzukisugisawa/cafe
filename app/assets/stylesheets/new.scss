@@ -1,0 +1,117 @@
+/* ===================================
+   新規投稿ページ (new.html.erb) のスタイル
+   =================================== */
+
+/* フォーム全体を囲むコンテナ（カードデザイン） */
+
+
+/* ===================================
+   Cafeメニュー表風 枠デザイン
+   =================================== */
+.body {
+  background-color: #1d3c2f; /* 外側の濃い緑色（メニューの外枠） */
+  padding: 40px 20px;        /* 余白をとって中央に */
+}
+
+/* フォームの内側カード部分 */
+.form-container {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 30px 40px;
+  background-color: #fdfaf1; /* 内側のベージュ色 */
+  border: 3px solid #d4b28c; /* 茶色っぽい枠線 */
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+/* ページタイトル */
+.form-container h1, .form-container h3 {
+  text-align: center;
+  color: #333;
+}
+.form-container h1 {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+.form-container h3 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: #777;
+  margin-bottom: 30px;
+}
+
+/* 各入力フィールド（ラベルと入力欄のセット） */
+.form-field {
+  margin-bottom: 25px; /* 各項目の間隔 */
+}
+
+/* ラベルのスタイル */
+.form-field label, .tag-label {
+  display: block;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 8px;
+}
+.tag-label {
+  margin-bottom: 15px;
+}
+
+/* テキスト入力欄とテキストエリアの共通スタイル */
+.form-field input[type="text"],
+.form-field textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333;
+  box-sizing: border-box; /* paddingを含めて幅を計算 */
+  transition: border-color 0.3s;
+}
+
+/* 入力欄がクリックされた時のスタイル */
+.form-field input[type="text"]:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: #D6C0A6; /* indexの検索窓の色に合わせる */
+}
+
+/* ファイル選択フィールドのスタイル */
+.form-field input[type="file"] {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* ボタンを配置するエリア */
+.form-actions {
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* 投稿ボタンのスタイル */
+.form-submit-button {
+  display: inline-block;
+  background-color: #D6C0A6;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 40px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
+  -webkit-appearance: none; /* iOSでのデフォルトスタイルを無効化 */
+}
+
+.form-submit-button:hover {
+  background-color: #D6C0A6;
+  transform: translateY(-2px); /* 少し上に浮き上がるアニメーション */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 「一覧に戻る」ボタンの位置調整 */
+.form-actions .custom-button-v3 {
+  margin-top: 15px;
+}

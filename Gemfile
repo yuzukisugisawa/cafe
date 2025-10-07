@@ -62,6 +62,7 @@ group :development do
   # gem "spring"
 end
 
+
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
@@ -72,6 +73,8 @@ gem 'dotenv-rails'
 gem 'carrierwave'
 gem 'cloudinary'
 # PostgreSQL → 本番用
+
 group :production do
   gem 'pg'
 end
+gem 'sass-rails'

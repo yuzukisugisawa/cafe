@@ -1,0 +1,37 @@
+/* ===================================
+   編集ページの追加スタイル
+   =================================== */
+
+.current-image-preview {
+  margin-bottom: 10px;
+}
+.current-image-preview p {
+  font-size: 0.8rem;
+  color: #777;
+  margin: 0 0 5px 0;
+}
+.preview-image {
+  max-width: 150px;
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.my-button {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 16px;
+  color: white;
+  background-color: #6c757d; /* グレー系の色 */
+  border: 1px solid #6c757d;
+  border-radius: 5px; /* 角を丸くする */
+  text-align: center;
+  text-decoration: none; /* リンクの下線を消す */
+  cursor: pointer; /* マウスカーソルを指の形にする */
+}
+
+/* マウスが乗った時のスタイル */
+.my-button:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
