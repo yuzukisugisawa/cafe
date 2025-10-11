@@ -69,14 +69,11 @@ group :test do
   gem "selenium-webdriver"
 end
 gem 'devise'
-gem 'dotenv-rails'
 gem 'carrierwave'
-gem 'cloudinary'
 # PostgreSQL → 本番用
 
 group :production do
-  gem 'pg'
+gem 'pg'
 end
 gem 'sass-rails'
-gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
