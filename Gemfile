@@ -77,3 +77,4 @@ gem 'pg'
 end
 gem 'sass-rails'
 gem 'activestorage-cloudinary-service'
+gem 'cloudinary'
